@@ -3,22 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Tag extends Model
+class State extends Model
 {
-    use HasFactory, HasUuids;
-    use SoftDeletes;
+    use HasFactory;
+    use HasUuids;
+    
+    public $timestamps = false;
 
     protected $fillable = [
+        'number',
         'name',
+        'abbreviation'
     ];
 
-    public function clientTags(): HasMany
+    public function cities(): HasMany
     {
-        return $this->hasMany(clientTags::class);
+        return $this->hasMany(City::class);
     }
 }

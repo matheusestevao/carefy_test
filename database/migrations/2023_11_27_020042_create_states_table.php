@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('states', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
+            $table->integer('number');
             $table->string('name');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('abbreviation');
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('states');
     }
 };

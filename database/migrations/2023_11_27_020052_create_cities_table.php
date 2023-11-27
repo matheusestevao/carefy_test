@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
+            $table->uuid('state_id')->index();
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
+            $table->integer('number');
             $table->string('name');
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('cities');
     }
 };
