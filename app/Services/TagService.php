@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class TagService
 {
-    public function store(Request $request): object|bool
+    public function store(string $name): object|bool
     {
         try {
             $tag = Tag::create([
-                'name' => $request->input('name'),
+                'name' => $name,
             ]);
 
             return $tag;

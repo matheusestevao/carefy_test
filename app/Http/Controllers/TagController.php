@@ -33,7 +33,7 @@ class TagController extends Controller
      */
     public function store(TagRequest $request, TagService $tagService)
     {
-        $tag = $tagService->store($request);
+        $tag = $tagService->store($request->input('name'));
 
         if ($tag instanceof Tag) {
             return redirect()->route('tag.index')

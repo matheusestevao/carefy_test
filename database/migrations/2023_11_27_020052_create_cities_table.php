@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_tags', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->uuid('client_id')->index();
-            $table->foreign('client_id')->references('id')->on('clients');
-            $table->uuid('tag_id')->index();
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->uuid('state_id')->index();
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
+            $table->integer('number');
+            $table->string('name');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('client_tags');
+        Schema::dropIfExists('cities');
     }
 };

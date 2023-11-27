@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->uuid('id')->primary('id');
-            $table->string('name');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::create('client_tags', function (Blueprint $table) {
+            $table->uuid('client_id')->index();
+            $table->foreign('client_id')->references('id')->on('clients');
+            $table->uuid('tag_id')->index();
+            $table->foreign('tag_id')->references('id')->on('tags');
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('client_tags');
     }
 };
