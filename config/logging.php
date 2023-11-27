@@ -65,6 +65,20 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'tags' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/tags/tags.log'),
+            'level' => 'info',
+            'days' => 30
+        ],
+
+        'clients' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/clients/clients.log'),
+            'level' => 'info',
+            'days' => 30
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
