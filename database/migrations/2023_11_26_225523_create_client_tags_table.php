@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('client_tags', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->uuid('client_id')->index()->after('id');
+            $table->uuid('client_id')->index();
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->uuid('tag_id')->index()->after('id');
+            $table->uuid('tag_id')->index();
             $table->foreign('tag_id')->references('id')->on('tags');
         });
     }
