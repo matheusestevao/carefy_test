@@ -26,7 +26,6 @@ class ClientRequest extends FormRequest
             'zip_code' => 'required',
             'address' => 'required',
             'number_address' => 'required',
-            'complement_address' => 'required',
             'neighborhood' => 'required',
             'birth' => 'required',
             'phone' => 'required'

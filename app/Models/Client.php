@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Client extends Model
 {
@@ -28,6 +29,8 @@ class Client extends Model
         'phone'
     ];
 
+    protected $dates = ['birth'];
+
     protected static function boot()
     {
         parent::boot();
@@ -41,9 +44,19 @@ class Client extends Model
         });
     }
 
+    public function setBirthAttribute($value)
+    {
+        $this->attributes['birth'] = Carbon::parse($value)->format('Y-m-d');
+    }
+
     public function clientTags(): HasMany
     {
         return $this->hasMany(ClientTag::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'client_tags', 'client_id', 'tag_id');
     }
 
     public function state(): BelongsTo
@@ -54,5 +67,15 @@ class Client extends Model
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function setAddress(): string
+    {
+        $fullAddres = $this->address . ', ' . $this->number_address;
+        $fullAddres .= ' ' . (!is_null($this->complement) ? $this->complement . ' ' : '');
+        $fullAddres .= ' - ' . $this->neighborhood;
+        $fullAddres .= ' - ' . $this->city->name . '/' . $this->state->abbreviation;
+
+        return $fullAddres;
     }
 }
